@@ -11,23 +11,21 @@ public class Cell {
 	private boolean maybeWumpus;
 	private int score;	
 
-	public Cell(boolean start, 
-				boolean clear, 
+	public Cell(
+				boolean start,
 				boolean stench, 
 				boolean breeze, 
 				boolean pit, 
 				boolean wumpus,
-				boolean glitter)
-	{
+				boolean glitter){
 		this.start = start;
-		this.clear = clear;
 		this.stench = stench;
 		this.breeze = breeze;
 		this.pit = pit;
 		this.wumpus = wumpus;
 		this.glitter = glitter;
 	}
-	
+
 	/**
 	 * @return the score
 	 */
@@ -56,18 +54,6 @@ public class Cell {
 		this.glitter = glitter;
 	}
 
-	/**
-	 * @return the start
-	 */
-	public boolean isStart() {
-		return start;
-	}
-	/**
-	 * @param start the start to set
-	 */
-	public void setStart(boolean start) {
-		this.start = start;
-	}
 	/**
 	 * @return the clear
 	 */

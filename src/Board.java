@@ -20,7 +20,7 @@ public class Board {
 	public Cell[][] cell;
 	
 	public Board(String pathToBoardFile){
-		File file = new File("file.txt");
+		File file = new File(pathToBoardFile);
 		BufferedReader reader = null;
 
 		try {
@@ -31,6 +31,7 @@ public class Board {
 		        if(counter == 0){
 		        	readSize(text);
 		        	this.cell = new Cell[this.rows][this.columns];
+		        	this.initializeCells();
 		        	counter++;
 		        } else {
 		        	readCell(text);
@@ -51,17 +52,23 @@ public class Board {
 		}
 	}
 	
+	private void initializeCells(){
+		for(int i = 0; i < this.rows; i++){
+			for(int j = 0; j < this.columns; j++){
+				this.cell[i][j] = new Cell(false, false, false, false, false, false);
+			}
+		}
+	}
+	
 	private void readSize(String text){
 	      String pattern = "[S|s]ize\\s*=\\s*(\\d+)\\s*,\\s*(\\d+)";
 	      // Create a Pattern object
 	      Pattern r = Pattern.compile(pattern);
 	      // Now create matcher object.
 	      Matcher m = r.matcher(text);
-	      if (m.find( )) {
-	         //System.out.println("Found value: " + m.group(0) );
-	         //System.out.println("Found value: " + m.group(1) );
-	    	 this.rows = Integer.parseInt(m.group(0));
-	    	 this.columns = Integer.parseInt(m.group(1));
+	      if (m.find()) {
+	    	 this.rows = Integer.parseInt(m.group(1));
+	    	 this.columns = Integer.parseInt(m.group(2));
 	      } else {
 	         System.out.println("NO MATCH");
 	      }
@@ -86,8 +93,8 @@ public class Board {
 	    		  columnNumber = Integer.parseInt(cellStuff[i]);
 	    	  } else {
 	    		  if(cellStuff[i].equalsIgnoreCase(WUMPUS)){
-	    			  wumpus = true;
-	    			  continue;
+	    			 wumpus = true;
+	    			 continue;
 	    		  } else if (cellStuff[i].equalsIgnoreCase(BREEZY)){
 	    			 breeze = true;
 	    			 continue;
@@ -105,25 +112,23 @@ public class Board {
 	    			  continue;
 	    		  }
 	    	  }
-	    	  
 	      }
-	      cell[rowNumber][columnNumber] = new Cell( 
-	    		    start,
-					stench, 
-					breeze, 
-					pit, 
-					wumpus,
-					glitter);
+	      cell[rowNumber][columnNumber].setBreeze(breeze);
+	      cell[rowNumber][columnNumber].setStart(start);
+	      cell[rowNumber][columnNumber].setStench(stench);
+	      cell[rowNumber][columnNumber].setPit(pit);
+	      cell[rowNumber][columnNumber].setWumpus(wumpus);
+	      cell[rowNumber][columnNumber].setGlitter(glitter);
 	}
 	
-	public void boardInit (String pathToBoardFile){
-		
-	}
 	public void print(){
 		for(int i = 0; i < rows; i++){
+			System.out.print("|");
 			for(int j = 0; j < columns; j++){
-				
+				cell[i][j].print();
+				System.out.print("|");
 			}
+			System.out.println();
 		}
 	}
 }

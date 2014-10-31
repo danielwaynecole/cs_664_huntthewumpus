@@ -18,7 +18,7 @@ public class Cell {
 				boolean pit, 
 				boolean wumpus,
 				boolean glitter){
-		this.start = start;
+		this.setStart(start);
 		this.stench = stench;
 		this.breeze = breeze;
 		this.pit = pit;
@@ -149,5 +149,39 @@ public class Cell {
 	 */
 	public void setMaybeWumpus(boolean maybeWumpus) {
 		this.maybeWumpus = maybeWumpus;
-	}		
+	}
+
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+
+	public boolean isStart() {
+		return start;
+	}
+
+	public void print() {
+		String values = "";
+		if(this.isBreeze()){
+			values += "B ";
+		}
+		if(this.isStench()){
+			values += "S ";
+		}
+		if(this.isPit()){
+			values += "P ";
+		}
+		if(this.isGlitter()){
+			values += "G ";
+		}
+		if(this.isWumpus()){
+			values += "W ";
+		}
+		if(this.isStart()){
+			values += "START ";
+		}
+		if(values.equalsIgnoreCase("")){
+			values = "  ";
+		}
+		System.out.print(values);
+	}
 }

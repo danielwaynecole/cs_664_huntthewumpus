@@ -1,6 +1,5 @@
 public class Cell {
 	private boolean start;
-	private boolean clear;
 	private boolean stench;
 	private boolean breeze;
 	private boolean pit;
@@ -58,13 +57,7 @@ public class Cell {
 	 * @return the clear
 	 */
 	public boolean isClear() {
-		return clear;
-	}
-	/**
-	 * @param clear the clear to set
-	 */
-	public void setClear(boolean clear) {
-		this.clear = clear;
+		return (!stench && !breeze && !wumpus && !pit);
 	}
 	/**
 	 * @return the stench

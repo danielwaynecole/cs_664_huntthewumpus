@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.util.Vector;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -55,7 +56,7 @@ public class Board {
 	private void initializeCells(){
 		for(int i = 0; i < this.rows; i++){
 			for(int j = 0; j < this.columns; j++){
-				this.cell[i][j] = new Cell(false, false, false, false, false, false);
+				this.cell[i][j] = new Cell();
 			}
 		}
 	}
@@ -76,49 +77,38 @@ public class Board {
 	
 	private void readCell(String text){
 	      String splitBy = ",";
-	      String[] cellStuff = text.split(splitBy);
-	      int rowNumber = 0;
-	      int columnNumber = 0;
-	      boolean start = false;
-	      boolean stench = false; 
-		  boolean breeze = false;
-		  boolean pit = false;
-		  boolean wumpus = false;
-		  boolean glitter = false;
-	      for(int i = 0; i < cellStuff.length; i++){
+	      String[] content = text.split(splitBy);
+	      int x = 0;
+	      int y = 0;
+
+	      for(int i = 0; i < content.length; i++){
 	    	  if(i == 0){
-	    		  rowNumber = Integer.parseInt(cellStuff[i]);
+	    		  x = Integer.parseInt(content[i]);
 	    	  }
 	    	  if(i == 1){
-	    		  columnNumber = Integer.parseInt(cellStuff[i]);
+	    		  y = Integer.parseInt(content[i]);
 	    	  } else {
-	    		  if(cellStuff[i].equalsIgnoreCase(WUMPUS)){
-	    			 wumpus = true;
+	    		  if(content[i].equalsIgnoreCase(WUMPUS)){
+	    			 cell[x][y].attributes.add("wumpus");
 	    			 continue;
-	    		  } else if (cellStuff[i].equalsIgnoreCase(BREEZY)){
-	    			 breeze = true;
+	    		  } else if (content[i].equalsIgnoreCase(BREEZY)){
+	    			  cell[x][y].attributes.add("breeze");
 	    			 continue;
-	    		  } else if (cellStuff[i].equalsIgnoreCase(STENCH)){
-	    			 stench = true;
+	    		  } else if (content[i].equalsIgnoreCase(STENCH)){
+	    			  cell[x][y].attributes.add("stench");
 	    			 continue; 
-	    		  } else if (cellStuff[i].equalsIgnoreCase(PIT)){
-	    			  pit = true;
+	    		  } else if (content[i].equalsIgnoreCase(PIT)){
+	    			  cell[x][y].attributes.add("pit");
 	    			  continue;
-	    		  } else if (cellStuff[i].equalsIgnoreCase(ENTER)){
-	    			  start = true;
+	    		  } else if (content[i].equalsIgnoreCase(ENTER)){
+	    			  cell[x][y].attributes.add("start");
 	    			  continue;	  
-	    		  } else if (cellStuff[i].equalsIgnoreCase(GOLD)){
-	    			  glitter = true;
+	    		  } else if (content[i].equalsIgnoreCase(GOLD)){
+	    			  cell[x][y].attributes.add("glitter");
 	    			  continue;
 	    		  }
 	    	  }
 	      }
-	      cell[rowNumber][columnNumber].setBreeze(breeze);
-	      cell[rowNumber][columnNumber].setStart(start);
-	      cell[rowNumber][columnNumber].setStench(stench);
-	      cell[rowNumber][columnNumber].setPit(pit);
-	      cell[rowNumber][columnNumber].setWumpus(wumpus);
-	      cell[rowNumber][columnNumber].setGlitter(glitter);
 	}
 	
 	public void print(){
